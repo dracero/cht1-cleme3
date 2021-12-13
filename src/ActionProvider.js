@@ -1,4 +1,5 @@
-import axios from "axios";
+import { gql } from "@apollo/client";
+import client from "./index";
 
 class ErrorLowConfidence extends Error {
   constructor() {
@@ -9,32 +10,40 @@ class ErrorLowConfidence extends Error {
 
 // ActionProvider starter code
 class ActionProvider {
+  
   constructor(createChatbotMessage, setStateFunc, createClientMessage) {
     this.createChatbotMessage = createChatbotMessage;
     this.setState = setStateFunc;
     this.createClientMessage = createClientMessage;
   }
 
-  searchByName(name) {
-    let response = axios
-      .get(process.env.REACT_APP_URL + "nlu_structure_name?name=" + name)
-      .then((response) => {
-        if (!response.data) {
-          console.log(
-            "Error: no existe una estructura con el nombre " + name + ""
-          );
-          return "";
-        } else {
-          //console.log(response.data.text);
-          return response.data.text;
-        }
+  async searchNlusByName(intent, entity, role, trait) {
+    let data = client
+      .query({
+        query: gql`
+          query Nlus($intent: String!, $entity: String!, $role: String, $trait: String!) {
+            nlus(intent: $intent, entity: $entity, role: $role, trait: $trait) {
+              intent {
+                text
+              }
+              entity {
+                text
+              }
+              role {
+                text
+              }
+              trait {
+                text
+              }
+            }
+          }
+        `,
+        variables: { intent: intent, entity: entity, role: role, trait: trait }
       })
-      .catch((error) => {
-        let errorMessage = error.response.data.name;
-        console.log(errorMessage);
-        return "";
-      });
-    return response;
+      .then(({ loading, error, data }) => { return data });
+
+    return data;
+
   }
 
   async greet(respuesta) {
@@ -74,19 +83,19 @@ class ActionProvider {
       if (conf_intent < 0.7 || conf_ent < 0.7 || conf_trai < 0.7) {
         throw new ErrorLowConfidence();
       }
-      await this.searchByName(intent).then((response) => {
-        text_intent = response;
-      });
-      await this.searchByName(ent).then((response) => {
-        text_entity = response;
-      });
+
+      let role = null
       if (ent_rol !== ent) {
-        await this.searchByName(ent_rol).then((response) => {
-          text_role = response;
-        });
+        role = ent_rol
       }
-      await this.searchByName(trai).then((response) => {
-        text_trait = response;
+      await this.searchNlusByName(intent, ent, role, trai).then((data) => {
+        let response = data.nlus
+        text_intent = response.intent.text;
+        text_entity = response.entity.text;
+        if (response.role){
+          text_role = response.role.text;
+        }
+        text_trait = response.trait.text;
       });
 
       // mensaje = a+b+c+d
@@ -101,7 +110,8 @@ class ActionProvider {
 
       const greetingMessage = this.createChatbotMessage(mensaje);
       this.updateChatbotState(greetingMessage);
-    } catch {
+    } catch (e) {
+      console.log(e);
       this.updateChatbotState(
         this.createChatbotMessage("No entiendo tu pregunta")
       );
