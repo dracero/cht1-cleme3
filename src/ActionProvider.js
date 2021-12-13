@@ -18,9 +18,9 @@ class ActionProvider {
     this.createClientMessage = createClientMessage;
   }
 
-  async searchByName(name) {
+  // TODO: Arreglar hook + class y devolver data
+  async searchNlusByName(intent, entity, role, trait) {
   
-    // CAMBIAR
     const GET_NLUS = gql`
     query Nlus($intent: String!, $entity: String!, $role: String, $trait: String!){
       nlus(intent: $intent, entity: $entity, role: $role, trait: $trait) {
@@ -40,10 +40,8 @@ class ActionProvider {
     }
     `;
   
-    console.log("entra?");
-    // CAMBIAR
     const { loading, error, data } = useQuery(GET_NLUS, {
-      variables: { name },
+      variables: { intent, entity, role, trait },
     });
   
   }
@@ -85,24 +83,22 @@ class ActionProvider {
       if (conf_intent < 0.7 || conf_ent < 0.7 || conf_trai < 0.7) {
         throw new ErrorLowConfidence();
       }
-      /*
-      await searchByName(intent).then((response) => {
-        text_intent = response;
-      });
-      */
-      await this.searchByName(ent).then((response) => {
-        text_entity = response;
-      });
-      /*
+
       if (ent_rol !== ent) {
-        await searchByName(ent_rol).then((response) => {
-          text_role = response;
-        });
+        ent_rol = null
       }
-      await searchByName(trai).then((response) => {
-        text_trait = response;
+      await searchNlusByName(intent, ent, ent_rol, trai).then((data) => {
+        // TODO: Asignar datos
+        /*
+        let response = data.nlus
+        text_intent = response.intent.text;
+        text_entity = response.entity.text;
+        if (response.role){
+          text_role = response.role.text;
+        }
+        text_trait = response.trait.text;
+        */
       });
-      */
 
       // mensaje = a+b+c+d
       const mensaje =
