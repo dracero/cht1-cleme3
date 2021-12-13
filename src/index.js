@@ -14,3 +14,5 @@ ReactDOM.render(
   </ApolloProvider>,
   rootElement
 );
+
+export default client
