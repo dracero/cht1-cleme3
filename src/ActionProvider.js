@@ -25,19 +25,15 @@ class ActionProvider {
     query Nlus($intent: String!, $entity: String!, $role: String, $trait: String!){
       nlus(intent: $intent, entity: $entity, role: $role, trait: $trait) {
         intent {
-          name
           text
         }
         entity {
-          name
           text
         }
         role {
-          name
           text
         }
         trait {
-          name
           text
         }
       }
