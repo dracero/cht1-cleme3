@@ -9,47 +9,6 @@ class ErrorLowConfidence extends Error {
   }
 }
 
-// CAMBIAR
-const GET_NLUS = gql`
-  query Nlus($name: String!){
-    nlus(name: $name) {
-      name
-      text
-    }
-  }
-`;
-
-
-const searchByName = (name) => {
-
-  // CAMBIAR
-  const { loading, error, data } = useQuery(GET_NLUS, {
-    variables: { name },
-  });
-
-  /*
-  let response = axios
-    .get(process.env.REACT_APP_URL + "nlu_structure_name?name=" + name)
-    .then((response) => {
-      if (!response.data) {
-        console.log(
-          "Error: no existe una estructura con el nombre " + name + ""
-        );
-        return "";
-      } else {
-        //console.log(response.data.text);
-        return response.data.text;
-      }
-    })
-    .catch((error) => {
-      let errorMessage = error.response.data.name;
-      console.log(errorMessage);
-      return "";
-    });
-  return response;
-  */
-}
-
 // ActionProvider starter code
 class ActionProvider {
   
@@ -57,6 +16,40 @@ class ActionProvider {
     this.createChatbotMessage = createChatbotMessage;
     this.setState = setStateFunc;
     this.createClientMessage = createClientMessage;
+  }
+
+  async searchByName(name) {
+  
+    // CAMBIAR
+    const GET_NLUS = gql`
+    query Nlus($intent: String!, $entity: String!, $role: String, $trait: String!){
+      nlus(intent: $intent, entity: $entity, role: $role, trait: $trait) {
+        intent {
+          name
+          text
+        }
+        entity {
+          name
+          text
+        }
+        role {
+          name
+          text
+        }
+        trait {
+          name
+          text
+        }
+      }
+    }
+    `;
+  
+    console.log("entra?");
+    // CAMBIAR
+    const { loading, error, data } = useQuery(GET_NLUS, {
+      variables: { name },
+    });
+  
   }
 
   async greet(respuesta) {
@@ -101,7 +94,7 @@ class ActionProvider {
         text_intent = response;
       });
       */
-      await searchByName(ent).then((response) => {
+      await this.searchByName(ent).then((response) => {
         text_entity = response;
       });
       /*
