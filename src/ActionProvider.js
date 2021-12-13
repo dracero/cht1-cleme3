@@ -1,4 +1,6 @@
+import React from "react";
 import axios from "axios";
+import { gql, useQuery } from "@apollo/client";
 
 class ErrorLowConfidence extends Error {
   constructor() {
@@ -7,34 +9,54 @@ class ErrorLowConfidence extends Error {
   }
 }
 
+// CAMBIAR
+const GET_NLUS = gql`
+  query Nlus($name: String!){
+    nlus(name: $name) {
+      name
+      text
+    }
+  }
+`;
+
+
+const searchByName = (name) => {
+
+  // CAMBIAR
+  const { loading, error, data } = useQuery(GET_NLUS, {
+    variables: { name },
+  });
+
+  /*
+  let response = axios
+    .get(process.env.REACT_APP_URL + "nlu_structure_name?name=" + name)
+    .then((response) => {
+      if (!response.data) {
+        console.log(
+          "Error: no existe una estructura con el nombre " + name + ""
+        );
+        return "";
+      } else {
+        //console.log(response.data.text);
+        return response.data.text;
+      }
+    })
+    .catch((error) => {
+      let errorMessage = error.response.data.name;
+      console.log(errorMessage);
+      return "";
+    });
+  return response;
+  */
+}
+
 // ActionProvider starter code
 class ActionProvider {
+  
   constructor(createChatbotMessage, setStateFunc, createClientMessage) {
     this.createChatbotMessage = createChatbotMessage;
     this.setState = setStateFunc;
     this.createClientMessage = createClientMessage;
-  }
-
-  searchByName(name) {
-    let response = axios
-      .get(process.env.REACT_APP_URL + "nlu_structure_name?name=" + name)
-      .then((response) => {
-        if (!response.data) {
-          console.log(
-            "Error: no existe una estructura con el nombre " + name + ""
-          );
-          return "";
-        } else {
-          //console.log(response.data.text);
-          return response.data.text;
-        }
-      })
-      .catch((error) => {
-        let errorMessage = error.response.data.name;
-        console.log(errorMessage);
-        return "";
-      });
-    return response;
   }
 
   async greet(respuesta) {
@@ -74,20 +96,24 @@ class ActionProvider {
       if (conf_intent < 0.7 || conf_ent < 0.7 || conf_trai < 0.7) {
         throw new ErrorLowConfidence();
       }
-      await this.searchByName(intent).then((response) => {
+      /*
+      await searchByName(intent).then((response) => {
         text_intent = response;
       });
-      await this.searchByName(ent).then((response) => {
+      */
+      await searchByName(ent).then((response) => {
         text_entity = response;
       });
+      /*
       if (ent_rol !== ent) {
-        await this.searchByName(ent_rol).then((response) => {
+        await searchByName(ent_rol).then((response) => {
           text_role = response;
         });
       }
-      await this.searchByName(trai).then((response) => {
+      await searchByName(trai).then((response) => {
         text_trait = response;
       });
+      */
 
       // mensaje = a+b+c+d
       const mensaje =
@@ -101,7 +127,8 @@ class ActionProvider {
 
       const greetingMessage = this.createChatbotMessage(mensaje);
       this.updateChatbotState(greetingMessage);
-    } catch {
+    } catch (e) {
+      console.log(e);
       this.updateChatbotState(
         this.createChatbotMessage("No entiendo tu pregunta")
       );
