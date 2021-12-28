@@ -48,32 +48,13 @@ class ActionProvider {
 
   async greet(respuesta) {
     try {
-      /*
-      // intent
-      console.log(respuesta.intents[0].name, respuesta.intents[0].confidence);
-      // entity
+      const intent = respuesta.intents[0].name;
+      const conf_intent = respuesta.intents[0].confidence;
       const ent = Object.values(Object.values(respuesta.entities)[0])[0].name;
-      // role
-      const ent_rol = Object.values(Object.values(respuesta.entities)[0])[0]
-        .role;
-      // confidence
-      const conf_ent = Object.values(Object.values(respuesta.entities)[0])[0]
-        .confidence;
-      console.log(ent, ent_rol, conf_ent);
-      // trait
+      const ent_rol = Object.values(Object.values(respuesta.entities)[0])[0].role;
+      const conf_ent = Object.values(Object.values(respuesta.entities)[0])[0].confidence;
       const trai = Object.values(Object.values(respuesta.traits)[0])[0].value;
-      const conf_trai = Object.values(Object.values(respuesta.traits)[0])[0]
-        .confidence;
-      console.log(trai, conf_trai);
-      */
-
-      const intent = "intent1";
-      const conf_intent = 0.75;
-      const ent = "entity1";
-      const ent_rol = "role1";
-      const conf_ent = 0.8;
-      const trai = "trait1";
-      const conf_trai = 0.9;
+      const conf_trai = Object.values(Object.values(respuesta.traits)[0])[0].confidence;
 
       let text_intent = "";
       let text_entity = "";

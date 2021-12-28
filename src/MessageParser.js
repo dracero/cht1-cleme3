@@ -8,7 +8,7 @@ class MessageParser {
 
   parse(message) {
     const lowerCaseMessage = message.toLowerCase();
-    const client = new Wit({ accessToken: "JBZHWQLH4XJW7RBHGWGAGONNCGNCY5F6" });
+    const client = new Wit({ accessToken: "NO45XJ7CQV5XHOD6LDF5TQ7WNISL6LR5" });
     var mensaje = lowerCaseMessage;
     client
       .message(mensaje, {})
