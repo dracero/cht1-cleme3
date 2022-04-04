@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import client from "./index";
 
+
 class ErrorLowConfidence extends Error {
   constructor() {
     super();
@@ -16,7 +17,7 @@ class ActionProvider {
     this.setState = setStateFunc;
     this.createClientMessage = createClientMessage;
   }
-
+  
   async searchNlusByName(intent, entity, role, trait) {
     let data = client
       .query({
@@ -51,11 +52,11 @@ class ActionProvider {
       const intent = respuesta.intents[0].name;
       const conf_intent = respuesta.intents[0].confidence;
       const ent = Object.values(Object.values(respuesta.entities)[0])[0].name;
-      const ent_rol = Object.values(Object.values(respuesta.entities)[0])[0].role;
+      const ent_rol = Object.values(Object.values(respuesta.entities)[0])[0].role;    
       const conf_ent = Object.values(Object.values(respuesta.entities)[0])[0].confidence;
       const trai = Object.values(Object.values(respuesta.traits)[0])[0].value;
       const conf_trai = Object.values(Object.values(respuesta.traits)[0])[0].confidence;
-
+        
       let text_intent = "";
       let text_entity = "";
       let text_role = "";
@@ -69,6 +70,7 @@ class ActionProvider {
       if (ent_rol !== ent) {
         role = ent_rol
       }
+      
       await this.searchNlusByName(intent, ent, role, trai).then((data) => {
         let response = data.nlus
         text_intent = response.intent.text;
@@ -76,9 +78,10 @@ class ActionProvider {
         if (response.role){
           text_role = response.role.text;
         }
-        text_trait = response.trait.text;
+        if (response.trait){
+          text_trait = response.trait.text; 
+        }
       });
-
       // mensaje = a+b+c+d
       const mensaje =
         text_intent +
@@ -91,6 +94,16 @@ class ActionProvider {
 
       const greetingMessage = this.createChatbotMessage(mensaje);
       this.updateChatbotState(greetingMessage);
+      if (mensaje.includes("si la fuerza se puede escribir como el gradiente de una función escalar es conservativa")){
+                  const Message = this.createChatbotMessage("Revisá estos links de trabajo", {
+                  widget: "trabpotlinks"});
+                  this.updateChatbotState(Message);
+      }
+      if (mensaje.includes("la potencia la derivada del trabajo respecto del tiempo")){
+        const Message = this.createChatbotMessage("Revisá estos links de potencia", {
+        widget: "potlinks"});
+        this.updateChatbotState(Message);
+      }
     } catch (e) {
       console.log(e);
       this.updateChatbotState(
@@ -98,7 +111,7 @@ class ActionProvider {
       );
     }
   } //fin funcion
-
+ 
   updateChatbotState(message) {
     // NOTE: This function is set in the constructor, and is passed in
     // from the top level Chatbot component. The setState function here
@@ -109,6 +122,8 @@ class ActionProvider {
       messages: [...prevState.messages, message]
     }));
   }
+
+
 }
 
 export default ActionProvider;
