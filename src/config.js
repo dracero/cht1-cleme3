@@ -16,8 +16,8 @@ const config = {
       props: {
         options: [
           {
-            text: "Definiciones de trabajo y energía",
-            url: "https://campus.fi.uba.ar/pluginfile.php/345695/mod_resource/content/0/Unidad%203%20-%20Trabajo%20y%20Energ%C3%ADa%20-%20Rev%2001.pdf",
+            text: "Expresión para hallar el trabajo entre dos puntos",
+            url: "https://drive.google.com/file/d/12DbsqsftDNHibjo_LT63Trd3S-oVbdTH/view?usp=sharing",
             id: 1
           },
           {
@@ -34,8 +34,8 @@ const config = {
       props: {
         options: [
           {
-            text: "Definiciones de trabajo y energía",
-            url: "https://campus.fi.uba.ar/pluginfile.php/345695/mod_resource/content/0/Unidad%203%20-%20Trabajo%20y%20Energ%C3%ADa%20-%20Rev%2001.pdf",
+            text: "Expresiones para hallar la potencia mecánica",
+            url: "https://drive.google.com/file/d/18qNikKmweUew90b2i6Vz7T8Io8DP0UQz/view?usp=sharing",
             id: 1
           },
           {
