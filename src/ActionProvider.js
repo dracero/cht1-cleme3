@@ -110,7 +110,7 @@ class ActionProvider {
             widget: "cinelinks"});
             this.updateChatbotState(Message);
         }
-        if (mess.includes("cir")){
+        else if (mess.includes("cir")){
           const Message = this.createChatbotMessage("Revisá estos links", {
           widget: "rigidolinks"});
           this.updateChatbotState(Message);
