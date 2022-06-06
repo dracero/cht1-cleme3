@@ -105,16 +105,48 @@ class ActionProvider {
       }
      } catch (e) {
         var mess = answer.mes.toLowerCase()
-        if (mess.includes("velocidad")){
-            const Message = this.createChatbotMessage("Revisá estos links", {
-            widget: "cinelinks"});
-            this.updateChatbotState(Message);
-        }
-        else if (mess.includes("cir")){
+        //Palabras clave de cinemática
+        var cinematica = (mess.includes("velocidad") || mess.includes("aceleración") || mess.includes("posición"))
+        var rigido = (mess.includes("cir") || mess.includes("cm") || mess.includes("centro de masa") || mess.includes("rígido"))
+        //Palabras clave de dinámica
+        var dinamica = (mess.includes("fuerza") || mess.includes("cuerpo libre"))
+        var trabajo  = (mess.includes("trabajo") || mess.includes("potencia") || mess.includes("energía"))
+        var impulso  = (mess.includes("percusión") || mess.includes("baricéntrico"))
+        if (cinematica && !(rigido) && !(mess.includes("partículas"))){
           const Message = this.createChatbotMessage("Revisá estos links", {
-          widget: "rigidolinks"});
+          widget: "cinelinks"});
           this.updateChatbotState(Message);
-        }          
+        }
+        else if (dinamica && !rigido && !(mess.includes("partículas"))){
+          const Message = this.createChatbotMessage("Revisá estos links", {
+          widget: "dinalinks"});
+          this.updateChatbotState(Message);
+        } 
+        else if (trabajo && !rigido && !(mess.includes("partículas"))){
+          const Message = this.createChatbotMessage("Revisá estos links", {
+          widget: "tyelinks"});
+          this.updateChatbotState(Message);
+        } 
+        else if (cinematica && rigido && !(mess.includes("partículas"))){
+          const Message = this.createChatbotMessage("Revisá estos links", {
+          widget: "cinerigidolinks"});
+          this.updateChatbotState(Message);
+        } 
+        else if (dinamica && rigido && !(mess.includes("partículas"))){
+          const Message = this.createChatbotMessage("Revisá estos links", {
+          widget: "dinarigidolinks"});
+          this.updateChatbotState(Message);
+        }
+        else if (impulso && !(mess.includes("partículas"))){
+          const Message = this.createChatbotMessage("Revisá estos links", {
+          widget: "tyerigidolinks"});
+          this.updateChatbotState(Message);
+        }    
+        else if (mess.includes("partículas")){
+          const Message = this.createChatbotMessage("Revisá estos links", {
+          widget: "sistparticulas"});
+          this.updateChatbotState(Message);
+        }              
         else {
         this.updateChatbotState(this.createChatbotMessage("No entiendo tu pregunta"));
      }
