@@ -11,7 +11,6 @@ class ErrorLowConfidence extends Error {
 
 // ActionProvider starter code
 class ActionProvider {
-  
   constructor(createChatbotMessage, setStateFunc, createClientMessage) {
     this.createChatbotMessage = createChatbotMessage;
     this.setState = setStateFunc;
@@ -47,15 +46,15 @@ class ActionProvider {
 
   }
 
-  async greet(respuesta) {
+  async greet(answer) {
     try {
-      const intent = respuesta.intents[0].name;
-      const conf_intent = respuesta.intents[0].confidence;
-      const ent = Object.values(Object.values(respuesta.entities)[0])[0].name;
-      const ent_rol = Object.values(Object.values(respuesta.entities)[0])[0].role;    
-      const conf_ent = Object.values(Object.values(respuesta.entities)[0])[0].confidence;
-      const trai = Object.values(Object.values(respuesta.traits)[0])[0].value;
-      const conf_trai = Object.values(Object.values(respuesta.traits)[0])[0].confidence;
+      const intent = answer.resp.intents[0].name;
+      const conf_intent = answer.resp.intents[0].confidence;
+      const ent = Object.values(Object.values(answer.resp.entities)[0])[0].name;
+      const ent_rol = Object.values(Object.values(answer.resp.entities)[0])[0].role;    
+      const conf_ent = Object.values(Object.values(answer.resp.entities)[0])[0].confidence;
+      const trai = Object.values(Object.values(answer.resp.traits)[0])[0].value;
+      const conf_trai = Object.values(Object.values(answer.resp.traits)[0])[0].confidence;
         
       let text_intent = "";
       let text_entity = "";
@@ -104,11 +103,21 @@ class ActionProvider {
         widget: "potlinks"});
         this.updateChatbotState(Message);
       }
-    } catch (e) {
-      console.log(e);
-      this.updateChatbotState(
-        this.createChatbotMessage("No entiendo tu pregunta")
-      );
+     } catch (e) {
+        var mess = answer.mes.toLowerCase()
+        if (mess.includes("velocidad")){
+            const Message = this.createChatbotMessage("Revisá estos links", {
+            widget: "cinelinks"});
+            this.updateChatbotState(Message);
+        }
+        if (mess.includes("cir")){
+          const Message = this.createChatbotMessage("Revisá estos links", {
+          widget: "rigidolinks"});
+          this.updateChatbotState(Message);
+        }          
+        else {
+        this.updateChatbotState(this.createChatbotMessage("No entiendo tu pregunta"));
+     }
     }
   } //fin funcion
  

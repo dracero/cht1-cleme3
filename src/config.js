@@ -45,6 +45,32 @@ const config = {
           }
         ]
       }
+    },
+    {
+      widgetName: "cinelinks",
+      widgetFunc: (props) => <LinkList {...props} />,
+      props: {
+        options: [
+          {
+            text: "Podés revisar los apuntes de cinemática",
+            url: "https://campus.fi.uba.ar/pluginfile.php/342335/mod_resource/content/0/Unidad%201%20-%20Cinem%C3%A1tica%20de%20la%20part%C3%ADcula-2020.pdf",
+            id: 1
+          }
+        ]
+      }
+    },
+    {
+      widgetName: "rigidolinks",
+      widgetFunc: (props) => <LinkList {...props} />,
+      props: {
+        options: [
+          {
+            text: "Podés revisar los apuntes de Cuerpo Rígido",
+            url: "https://campus.fi.uba.ar/pluginfile.php/374008/mod_resource/content/0/Unidad%205%20-%20Cinematica%20del%20cuerpo%20r%C3%ADgido%20Rev%2002.pdf",
+            id: 1
+          }
+        ]
+      }
     }
   ]
 };

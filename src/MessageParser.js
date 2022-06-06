@@ -14,7 +14,11 @@ class MessageParser {
       .message(mensaje, {})
       .then((data) => {
         var respuesta = data;
-        this.actionProvider.greet(respuesta);
+        var answer ={
+          mes: mensaje,
+          resp: respuesta
+        }
+        this.actionProvider.greet(answer);
       })
       .catch((err) => this.actionProvider.greet("vacio"));
   }
