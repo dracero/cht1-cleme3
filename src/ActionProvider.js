@@ -109,8 +109,8 @@ class ActionProvider {
         var cinematica = (mess.includes("velocidad") || mess.includes("aceleración") || mess.includes("posición"))
         var rigido = (mess.includes("cir") || mess.includes("cm") || mess.includes("centro de masa") || mess.includes("rígido"))
         //Palabras clave de dinámica
-        var dinamica = (mess.includes("fuerza") || mess.includes("cuerpo libre"))
-        var trabajo  = (mess.includes("trabajo") || mess.includes("potencia") || mess.includes("energía"))
+        var dinamica = (mess.includes("fuerza") || mess.includes("cuerpo libre") || mess.includes("dcl") )
+        var trabajo  = (mess.includes("trabajo") || mess.includes("potencia") || mess.includes("energía") || mess.includes("conservativa"))
         var impulso  = (mess.includes("percusión") || mess.includes("baricéntrico"))
         if (cinematica && !(rigido) && !(mess.includes("partículas"))){
           const Message = this.createChatbotMessage("Revisá estos links", {
