@@ -47,6 +47,7 @@ class ActionProvider {
   }
 
   async greet(answer) {
+    console.log(answer)
     try {
       const intent = answer.resp.intents[0].name;
       const conf_intent = answer.resp.intents[0].confidence;
@@ -69,11 +70,11 @@ class ActionProvider {
       if (ent_rol !== ent) {
         role = ent_rol
       }
-      
-      await this.searchNlusByName(intent, ent, role, trai).then((data) => {
+    
+    await this.searchNlusByName(intent, ent, role, trai).then((data) => {
         let response = data.nlus
-        text_intent = response.intent.text;
-        text_entity = response.entity.text;
+        response.intent.text != null ? text_intent = response.intent.text : text_intent = '';
+        response.entity.text != null ? text_entity = response.entity.text : text_entity ='';
         if (response.role){
           text_role = response.role.text;
         }
@@ -109,7 +110,7 @@ class ActionProvider {
         var cinematica = (mess.includes("velocidad") || mess.includes("aceleración") || mess.includes("posición"))
         var rigido = (mess.includes("cir") || mess.includes("cm") || mess.includes("centro de masa") || mess.includes("rígido"))
         //Palabras clave de dinámica
-        var dinamica = (mess.includes("fuerza") || mess.includes("cuerpo libre") || mess.includes("dcl") )
+        var dinamica = (mess.includes("fuerza") || mess.includes("cuerpo libre") || mess.includes("dcl") || mess.includes("Newton") || mess.includes("newton "))
         var trabajo  = (mess.includes("trabajo") || mess.includes("potencia") || mess.includes("energía") || mess.includes("conservativa"))
         var impulso  = (mess.includes("percusión") || mess.includes("baricéntrico"))
         if (cinematica && !(rigido) && !(mess.includes("partículas"))){
