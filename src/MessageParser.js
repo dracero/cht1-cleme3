@@ -10,8 +10,9 @@ class MessageParser {
     const lowerCaseMessage = message.toLowerCase();
     const withoutMarks = lowerCaseMessage.replace('?','');
     const freeMarks =  withoutMarks.replace('¿','');
+    const freePeridod =  freeMarks.replace('.','');
     const client = new Wit({ accessToken: "UAQCAODJZJ3VBULSNUZGMIBLWM4EYMMF" });
-    var mensaje = freeMarks;
+    var mensaje = freePeridod;
     client
       .message(mensaje, {})
       .then((data) => {
