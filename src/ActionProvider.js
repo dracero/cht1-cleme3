@@ -107,7 +107,7 @@ class ActionProvider {
      } catch (e) {
         var mess = answer.mes.toLowerCase()
         //Palabras clave de cinemática
-        var cinematica = (mess.includes("velocidad") || mess.includes("aceleración") || mess.includes("posición") || mess.includes("posicion") || mess.includes("rueda sin deslizar") || mess.includes("rotraslación"))
+        var cinematica = (mess.includes("velocidad") || mess.includes("aceleración") || mess.includes("posición") || mess.includes("posicion") || mess.includes("rueda sin deslizar") || mess.includes("rotraslación") || mess.includes("punto"))
         var rigido = (mess.includes("cir") || mess.includes("cm") || mess.includes("centro de masa") || mess.includes("rígido"))
         //Palabras clave de dinámica
         var dinamica = (mess.includes("fuerza") || mess.includes("cuerpo libre") || mess.includes("dcl") || mess.includes("Newton") || mess.includes("newton "))
