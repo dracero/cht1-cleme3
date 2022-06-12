@@ -62,7 +62,7 @@ class ActionProvider {
       let text_role = "";
       let text_trait = "";
 
-      if (conf_intent < 0.7 || conf_ent < 0.7 || conf_trai < 0.7) {
+      if (conf_intent < 0.6 || conf_ent < 0.6 || conf_trai < 0.6) {
         throw new ErrorLowConfidence();
       }
 
