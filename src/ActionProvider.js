@@ -45,7 +45,7 @@ class ActionProvider {
     return data;
 
   }
-
+  //en esta parte estan las respuestas
   async greet(answer) {
     console.log(answer)
     try {
@@ -70,7 +70,6 @@ class ActionProvider {
       if (ent_rol !== ent) {
         role = ent_rol
       }
-    
     await this.searchNlusByName(intent, ent, role, trai).then((data) => {
         let response = data.nlus
         response.intent.text != null ? text_intent = response.intent.text : text_intent = '';
