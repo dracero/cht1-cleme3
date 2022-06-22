@@ -61,7 +61,7 @@ class ActionProvider {
       let text_entity = "";
       let text_role = "";
       let text_trait = "";
-
+      console.log(conf_ent,conf_intent,conf_trai)
       if (conf_intent < 0.6 || conf_ent < 0.6 || conf_trai < 0.6) {
         throw new ErrorLowConfidence();
       }
@@ -70,7 +70,8 @@ class ActionProvider {
       if (ent_rol !== ent) {
         role = ent_rol
       }
-    await this.searchNlusByName(intent, ent, role, trai).then((data) => {
+      
+      await this.searchNlusByName(intent, ent, role, trai).then((data) => {
         let response = data.nlus
         response.intent.text != null ? text_intent = response.intent.text : text_intent = '';
         response.entity.text != null ? text_entity = response.entity.text : text_entity ='';
