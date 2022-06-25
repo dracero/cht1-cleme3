@@ -20,7 +20,9 @@
     "typescript": "4.1.3"
   },
   "scripts": {
+    "prep": "export NODE_OPTIONS=--openssl-legacy-provider",
     "start": "react-scripts start",
+    "launch": "npm run prep & npm run start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
