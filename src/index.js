@@ -3,7 +3,7 @@ import App from "./components/chatbot";
 import { ApolloProvider, ApolloClient, InMemoryCache, useQuery, gql} from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: 'https://aplochatf1.herokuapp.com/',
+  uri: 'https://apollochatf1-production.up.railway.app/',
   cache: new InMemoryCache(),
 });
 

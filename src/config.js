@@ -136,6 +136,19 @@ const config = {
           }
         ]
       }
+    },
+    {
+      widgetName: "buscador",
+      widgetFunc: (props) => <LinkList {...props} />,
+      props: {
+        options: [
+          {
+            text: "Usá nuestro buscador customizado por los docentes",
+            url: "https://sleepy-zircon-beanie.glitch.me/#gsc.tab=0",
+            id: 1
+          }
+        ]
+      }
     }
   ]
 };

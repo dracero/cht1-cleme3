@@ -149,7 +149,9 @@ class ActionProvider {
           this.updateChatbotState(Message);
         }              
         else {
-        this.updateChatbotState(this.createChatbotMessage("No entiendo tu pregunta"));
+          const Message = this.createChatbotMessage("Usá el buscador, coipiá y pegá tu consulta", {
+          widget: "buscador"});
+          this.updateChatbotState(Message);
      }
     }
   } //fin funcion
