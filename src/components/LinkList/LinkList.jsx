@@ -2,6 +2,7 @@ import React from "react";
 
 import "./LinkList.css";
 //acá están los links
+//no hace falta agregar nada
 const LinkList = (props) => {
   const linkMarkup = props.options.map((link) => (
     <li key={link.id} className="link-list-item">
