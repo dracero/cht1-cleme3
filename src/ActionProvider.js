@@ -94,7 +94,7 @@ class ActionProvider {
 
       const greetingMessage = this.createChatbotMessage(mensaje);
       this.updateChatbotState(greetingMessage);
-      if (mensaje.includes("si la fuerza se puede escribir como el gradiente de una función escalar es conservativa")){
+      /*if (mensaje.includes("si la fuerza se puede escribir como el gradiente de una función escalar es conservativa")){
                   const Message = this.createChatbotMessage("Revisá estos links de trabajo", {
                   widget: "trabpotlinks"});
                   this.updateChatbotState(Message);
@@ -103,9 +103,10 @@ class ActionProvider {
         const Message = this.createChatbotMessage("Revisá estos links de potencia", {
         widget: "potlinks"});
         this.updateChatbotState(Message);
-      }
+      }*/
+      //acá llega si es que tiró un error
      } catch (e) {
-        var mess = answer.mes.toLowerCase()
+        /*var mess = answer.mes.toLowerCase()
         //Palabras clave de cinemática
         var cinematica = (mess.includes("velocidad") || mess.includes("aceleración") || mess.includes("posición") || mess.includes("posicion") || mess.includes("rueda sin deslizar") || mess.includes("rotraslación") || mess.includes("punto"))
         var rigido = (mess.includes("cir") || mess.includes("cm") || mess.includes("centro de masa") || mess.includes("rígido"))
@@ -118,6 +119,7 @@ class ActionProvider {
           widget: "cinelinks"});
           this.updateChatbotState(Message);
         }
+      
         else if (dinamica && !rigido && !(mess.includes("partículas"))){
           const Message = this.createChatbotMessage("Revisá estos links", {
           widget: "dinalinks"});
@@ -147,12 +149,13 @@ class ActionProvider {
           const Message = this.createChatbotMessage("Revisá estos links", {
           widget: "sistparticulas"});
           this.updateChatbotState(Message);
-        }              
-        else {
+        }  
+               
+        else {*/
           const Message = this.createChatbotMessage("Usá el buscador, copiá y pegá tu consulta", {
           widget: "buscador"});
           this.updateChatbotState(Message);
-     }
+     //}
     }
   } //fin funcion
  
