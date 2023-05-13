@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import client from "./index";
-
+import axios from "axios";
 
 class ErrorLowConfidence extends Error {
   constructor() {
@@ -16,7 +16,7 @@ class ActionProvider {
     this.setState = setStateFunc;
     this.createClientMessage = createClientMessage;
   }
-  
+ 
   async searchNlusByName(intent, entity, role, trait) {
     let data = client
       .query({
@@ -106,7 +106,8 @@ class ActionProvider {
       }*/
       //acá llega si es que tiró un error
      } catch (e) {
-        /*var mess = answer.mes.toLowerCase()
+        var mess = answer.mes.toLowerCase()
+        /*
         //Palabras clave de cinemática
         var cinematica = (mess.includes("velocidad") || mess.includes("aceleración") || mess.includes("posición") || mess.includes("posicion") || mess.includes("rueda sin deslizar") || mess.includes("rotraslación") || mess.includes("punto"))
         var rigido = (mess.includes("cir") || mess.includes("cm") || mess.includes("centro de masa") || mess.includes("rígido"))
@@ -152,9 +153,15 @@ class ActionProvider {
         }  
                
         else {*/
-          const Message = this.createChatbotMessage("Usá el buscador, copiá y pegá tu consulta", {
-          widget: "buscador"});
-          this.updateChatbotState(Message);
+        try {
+          const response = await axios.post(process.env.REACT_APP_BACK_GPT_URL + '/generate?prompt=' + mess);
+            answer = response.data;
+            const greetingMessage = this.createChatbotMessage(answer);
+            this.updateChatbotState(greetingMessage);
+        } catch (error) {
+          console.error(error);
+        }
+        
      //}
     }
   } //fin funcion
@@ -172,5 +179,6 @@ class ActionProvider {
 
 
 }
+
 
 export default ActionProvider;

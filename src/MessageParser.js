@@ -4,6 +4,8 @@ import { Wit } from "node-wit";
 class MessageParser {
   constructor(actionProvider) {
     this.actionProvider = actionProvider;
+    this.answer = ""
+    
   }
 
   parse(message) {
