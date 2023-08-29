@@ -4,7 +4,7 @@ import App from './components/chatbot';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: 'https://apollochatf1-production.up.railway.app/',
+  uri: 'https://cetec-apollo-server.onrender.com',
   cache: new InMemoryCache(),
 });
 
